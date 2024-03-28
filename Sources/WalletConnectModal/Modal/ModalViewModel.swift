@@ -304,6 +304,12 @@ extension ModalViewModel: WalletDeeplinkHandler {
                         self.toast = Toast(style: .error, message: DeeplinkErrors.failedToOpen.localizedDescription)
                     }
                 }
+            } else if let nativeUrl = nativeUrlString?.toURL() {
+                uiApplicationWrapper.openURL(nativeUrl) { success in
+                    if !success {
+                        self.toast = Toast(style: .error, message: DeeplinkErrors.failedToOpen.localizedDescription)
+                    }
+                }
             } else {
                 throw DeeplinkErrors.noWalletLinkFound
             }
